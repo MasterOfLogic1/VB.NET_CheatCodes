@@ -1,0 +1,1 @@
+I’ve been compiling this code dump since 2017, long before ChatGPT. It used to be my go-to repo that saved me whenever I had to build an RPA solution or write code to manipulate data. Today, I’m dropping it here for free, so everyone can benefit from it. It reminds me of my humble beginnings. Feel free to request collaboration, and let’s work together to make it even better.
