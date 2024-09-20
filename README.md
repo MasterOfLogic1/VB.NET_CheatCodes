@@ -24,7 +24,7 @@ This repository contains a collection of reusable RPA (Robotic Process Automatio
    Adds a new column to a DataTable with a specific data type (e.g., String).
 
    ```vb
-   Trsf_DT.Columns.Add("NARRATION", GetType(String))
+   dt.Columns.Add("NARRATION", GetType(String))
    ```
 
 ### 3. **Joining Data Tables - Matching Elements**
@@ -81,11 +81,47 @@ This repository contains a collection of reusable RPA (Robotic Process Automatio
    Merges two DataTables, copying the parent into the child table.
 
    ```vb
-   Try
-       ChildTable.Merge(ParentTable, False, MissingSchemaAction.Ignore)
-   Catch ex As Exception
-       errorMessage = ex.Message
-   End Try
+Function MergeParentIntoChild(ByRef ParentTable As DataTable, ByRef ChildTable As DataTable) As String
+    Dim errorMessage As String = ""
+    
+    Try
+        Console.WriteLine("Running function to merge datatables")
+        
+        ' Check if the parent table has any records
+        If ParentTable IsNot Nothing AndAlso ParentTable.Rows.Count > 0 Then
+            Console.WriteLine("Parent table has " & ParentTable.Rows.Count.ToString & " records")
+
+            ' Initialize child table if it's not already initialized
+            If ChildTable Is Nothing Then
+                Console.WriteLine("Child table not initialized... Cloning from parent table")
+                ChildTable = ParentTable.Clone
+                Console.WriteLine("Child datatable cloned successfully")
+            Else
+                Console.WriteLine("Child table already initialized and has " & ChildTable.Rows.Count.ToString & " records")
+            End If
+
+            ' Perform the merge
+            Console.WriteLine("Merging parent data of " & ParentTable.Rows.Count.ToString & " into child datatable with " & ChildTable.Rows.Count.ToString & " records")
+            ChildTable.Merge(ParentTable, False, MissingSchemaAction.Ignore)
+            Console.WriteLine("Merge successful. Total records in child table: " & ChildTable.Rows.Count.ToString)
+
+            ' Clear parent table after merge
+            Console.WriteLine("Clearing parent table")
+            ParentTable.Clear()
+
+        Else
+            Console.WriteLine("No record in parent table")
+        End If
+
+    Catch ex As Exception
+        ' Handle and log any exceptions
+        errorMessage = ex.Message
+        Console.WriteLine("Error occurred: " & errorMessage)
+    End Try
+
+    ' Return any error messages (empty string if no error)
+    Return errorMessage
+End Function
    ```
 
 ### 10. **Trimming Spaces in DataTable**
@@ -138,7 +174,7 @@ This repository contains a collection of reusable RPA (Robotic Process Automatio
    ```
 
 ### 17. **Getting Duplicates in DataTable**
-   Retrieves duplicate rows based on specific columns.
+   Retrieves duplicate rows  from a datatable (dt) based on specific columns.
 
    ```vb
    Duplicate = dt.AsEnumerable().
@@ -147,7 +183,7 @@ This repository contains a collection of reusable RPA (Robotic Process Automatio
    ```
 
 ### 18. **Getting Non-Duplicates in DataTable**
-   Retrieves non-duplicate rows based on specific columns.
+   Retrieves non-duplicate rows from a datatable (dt) based on specific columns.
 
    ```vb
    NonDuplicates = dt.AsEnumerable().
@@ -156,7 +192,7 @@ This repository contains a collection of reusable RPA (Robotic Process Automatio
    ```
 
 ### 19. **Removing All Spaces in DataTable**
-   Removes all spaces from the cells in a DataTable.
+   Removes all spaces from the cells in a DataTable (dt) .
 
    ```vb
    dtCorrected = (From r In dt.AsEnumerable Select ia = r.ItemArray.ToList Select ic = ia.ConvertAll(Function(e) e.ToString.Trim.Replace(" ", String.Empty)).ToArray() Select dtCorrected.Rows.Add(ic)).CopyToDataTable()
