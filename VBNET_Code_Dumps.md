@@ -7,7 +7,7 @@ I’ve been compiling this code dump since 2017, long before ChatGPT. It used to
 
 This repository contains a collection of reusable RPA (Robotic Process Automation) scripts and functions written in VB.Net. Each script addresses a specific task commonly encountered in RPA development, from data manipulation to table joins, date conversions, and more. Below is a detailed description of the scripts:
 
-## Code Descriptions
+
 
 ### 1. **Reading from CSV Using DB**
    Reads data from a CSV file using a database connection.
