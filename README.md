@@ -132,10 +132,10 @@ End Function
    ```
 
 ### 11. **Summing Column Values**
-   Sums values in a specific column.
+   Sums values in a specific column In a databale (dt)- while avoid errors that could occur due to empty cells and non numeric cells in that column.
 
    ```vb
-   replacedebitTxn.AsEnumerable.Sum(Function(x) Convert.ToDouble(x("TXN_AMT").ToString.Trim)).ToString
+   dt.AsEnumerable.Sum(Function(a)if(String.IsNullOrEmpty(a("Column A").ToString) or String.IsNullOrWhiteSpace(a("Column A").ToString) or Not Double.TryParse(a("Column A").ToString,Nothing),0,Convert.ToDouble(a("Column A").ToString)))
    ```
 
 ### 12. **Filtering a DataTable**
