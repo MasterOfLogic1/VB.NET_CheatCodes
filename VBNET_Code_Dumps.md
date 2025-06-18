@@ -206,5 +206,5 @@ End Function
    ```vb
    row.Table.Columns.Cast(Of DataColumn)().Zip(row.ItemArray, Function(c, v) New With {.ColumnName = c.ColumnName, .Value = v}).ToDictionary(Function(item) item.ColumnName, Function(item) item.Value)
    ```
-
+dt.AsEnumerable().GroupBy(Function(r) r("Actions Url").ToString()).Select(Function(g) If(g.Any(Function(r) r("Bot Status").ToString() = "Successful"), g.First(Function(r) r("Bot Status").ToString() = "Successful"), g.First())).CopyToDataTable()
 ```
