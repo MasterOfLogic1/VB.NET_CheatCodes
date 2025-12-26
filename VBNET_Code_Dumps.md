@@ -208,3 +208,10 @@ End Function
    ```
 dt.AsEnumerable().GroupBy(Function(r) r("Actions Url").ToString()).Select(Function(g) If(g.Any(Function(r) r("Bot Status").ToString() = "Successful"), g.First(Function(r) r("Bot Status").ToString() = "Successful"), g.First())).CopyToDataTable()
 ```
+
+### 21. **Resolve Time Zone issues in server**
+
+   ```vb
+   TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).ToString("MM/dd/yyyy")'lastDate.ToString("MM/dd/yyyy")
+   ```
+
